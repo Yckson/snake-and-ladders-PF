@@ -1,22 +1,14 @@
-const criarCasa = (id)=>{
-    const casa = document.createElement('div');
-
-    casa.classList.add('casa');
-    casa.id = id;
-
-    return casa;
-}
-
 const pegarElemento = (id)=>{
     return document.getElementById(id);
 }
 
-const construirTabuleiro = (acc=1)=>{
-    if(acc > 100) return null;
-    const tabuleiro = pegarElemento('tabuleiro');
-    tabuleiro.appendChild(criarCasa(acc));
-
-    return construirTabuleiro(acc + 1);
-
+const mostrarCorEscolhida = (event) => {
+    const id = event.target.id.slice(-1);
+    const mudarCor = document.querySelector(`label[for="jogadorcolor${id}"]`);
+    mudarCor.style.backgroundColor = event.target.value;
 }
 
+const adicionarJogadorTemporaria = ()=>{
+    configurarNovoJogador(main);
+    main.numJogadores += 1;
+}

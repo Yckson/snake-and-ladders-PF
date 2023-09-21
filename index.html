@@ -4,14 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo Snake and Ladders em JavaScript (Programação Funcional)</title>
+    <script src="https://kit.fontawesome.com/c6444e5d29.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="src/styles/style.css">
 </head>
 <body>
     <div class="main">
-        <div class="tabuleiro" id="tabuleiro">
+        <div class="configuracoesIniciais hide">
+            <h1>Snake and Ladders</h1>
+            <div class="jogadores" id="jogadores">
+                <!--
+                <div class="jogador">
+                    <label for="jogador0">Jogador 1: </label>
+                    <input type="text" id="jogador0" placeholder="Nome do jogador...">
+                    <label title="Escolha uma cor..." for="jogadorcolor0" class="colorPicker"></label>
+                    <input type="color" id="jogadorcolor0" class="hide" oninput="change(event)">
+                </div>
+                -->
+                
+
+
+            </div>
+            <button onclick="adicionarJogadorTemporaria()" id="adicionarJogador" title="Adicionar Jogador..."><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+            <button id="btn-iniciar">COMEÇAR!</button>
         </div>
+        <div class="tabuleiro hide" id="tabuleiro">
+        </div>
+        <div class="dado"></div>
     </div>
     <script src="src/scripts/utilityFunctions.js"></script>
     <script src="src/scripts/main.js"></script>
+    <script src="./src/scripts/listeners.js"></script>
+    <script src="./src/scripts/core.js"></script>
+    
 </body>
 </html>

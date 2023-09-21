@@ -1,3 +1,8 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    construirTabuleiro();
+    adicionarJogadorTemporaria();
+    iniciarJogo();
 });
+
+const main = {
+    numJogadores: 0,
+}
