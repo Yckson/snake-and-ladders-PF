@@ -6,30 +6,34 @@ const criarJogador = () => {
     
 }
 
-const configurarNovoJogador = (main) => {
+//Função responsável por colocar um novo jogador na lista inicial de criação de jogadores.
+
+const configurarNovoJogador = () => {
     const jogadores = pegarElemento('jogadores');
+    const numJogadores = document.querySelectorAll('div.jogadores > *').length;
+    console.log(numJogadores);
     const novoJogador = document.createElement('div');
     novoJogador.addEventListener('input', (e) => mostrarCorEscolhida(e));
 
     novoJogador.className = 'jogador';
 
     const jogadorLabelNome = document.createElement('label');
-    jogadorLabelNome.textContent = `Jogador ${main.numJogadores + 1}`;
-    jogadorLabelNome.setAttribute('for', `jogador${main.numJogadores}`);
+    jogadorLabelNome.textContent = `Jogador ${numJogadores + 1}`;
+    jogadorLabelNome.setAttribute('for', `jogador${numJogadores}`);
 
     const jogadorInputNome = document.createElement('input');
     jogadorInputNome.type = 'text';
-    jogadorInputNome.id = `jogador${main.numJogadores}: `;
+    jogadorInputNome.id = `jogador${numJogadores}: `;
     jogadorInputNome.placeholder = 'Nome do Jogador...';
 
     const jogadorLabelCor = document.createElement('label');
-    jogadorLabelCor.setAttribute('for', `jogadorcolor${main.numJogadores}`);
+    jogadorLabelCor.setAttribute('for', `jogadorcolor${numJogadores}`);
     jogadorLabelCor.classList.add('colorPicker');
     jogadorLabelCor.title = 'Escolha a cor do jogador';
 
     const jogadorInputCor = document.createElement('input');
     jogadorInputCor.type = 'color';
-    jogadorInputCor.id = `jogadorcolor${main.numJogadores}`;
+    jogadorInputCor.id = `jogadorcolor${numJogadores}`;
     jogadorInputCor.classList.add('hide');
 
     novoJogador.appendChild(jogadorLabelNome);
@@ -109,4 +113,4 @@ const rolar = () => {
     }, 1000);
 }
   
-rolar();
+

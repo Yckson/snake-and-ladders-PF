@@ -28,8 +28,9 @@ div.tabuleiro{
     left: 50%;
     transform: translate(-50%, -50%);
     background-image: url('../img/tabuleiro.jpeg');
-    height: 768px;
-    width: 1031px;
+    background-size: contain;
+    height: calc(768px / 1.2);
+    width: calc(1031px / 1.2);
     border: 1px solid black;
     border-collapse: collapse;
 }
@@ -182,6 +183,5 @@ div.dado{
     bottom: 0;
     background-image: url('../img/dice.png');
     background-size: cover;
-    transition-duration: 0.5s;
     cursor: pointer;
 }
