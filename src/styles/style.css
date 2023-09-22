@@ -80,6 +80,72 @@ button#btn-iniciar{
     color: white;
 }
 
+.container{
+    width: 100px;
+    padding: 130px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 76%;
+    left: 89%;
+    background-color: #689ef0;
+    box-shadow: 0 15px 25px rgba(50,50,50,0.15);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Poppins",sans-serif;
+}
+
+.dado{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: 11%;
+    left: 31%;
+}
+
+p{
+    font-size: 16px;
+    margin: 30px 0;
+    font-weight: 600;
+    position: absolute;
+    top: 47%;
+    left: 32%;
+}
+
+button#btn-rolar{
+    background-color: #e92e3d;
+    border: none;
+    outline: none;
+    color: #000000;
+    font-weight: 800;
+    padding: 15px 0;
+    width: 150px;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 73%;
+    left: 22%;
+}
+
+.agitar{
+    animation: agitar 0.5s infinite;
+}
+
+@keyframes agitar{
+    0%{
+        transform: rotate(8deg);
+    }
+    50%{
+        transform: rotate(-8deg);
+    }
+    100%{
+        transform: rotate(8deg);
+    }
+}
+
 div.jogadores{
     display: flex;
     width: 100%;
@@ -107,8 +173,6 @@ label.colorPicker{
     background-color: black;
     cursor: pointer;
 }
-
-
 
 div.dado{
     height: 100px;
