@@ -113,4 +113,28 @@ const rolar = () => {
     }, 1000);
 }
   
+//DDGSD
 
+const jogador1Input = document.getElementById("player1");
+const jogador2Input = document.getElementById("player2");
+
+let jogadorAtual = jogador1Input.value;
+
+const alternarJogador = () => {
+    if (jogadorAtual === jogador1Input.value) {
+        jogadorAtual = jogador2Input.value;
+    } else {
+        jogadorAtual = jogador1Input.value;
+    }
+  
+    const turnoDoJogador = document.querySelector("#turnPlayer");
+    turnoDoJogador.textContent = `Vez de: ${jogadorAtual}`;
+}
+
+const rolarEAtualizarJogador = () => {
+    rolar(); 
+    alternarJogador(); 
+}
+
+const btnRolarDado = document.querySelector("#btn-rolar");
+btnRolarDado.addEventListener("click", rolarEAtualizarJogador);

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     adicionarJogadorTemporaria();
-    construirTabuleiro();
+    //construirTabuleiro();
     iniciarJogo();
 });
 

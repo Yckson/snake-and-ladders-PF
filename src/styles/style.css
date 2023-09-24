@@ -185,3 +185,10 @@ div.dado{
     background-size: cover;
     cursor: pointer;
 }
+
+.apaga span#turnPlayer {
+    font-size: 14px; 
+    margin-top: -5px; 
+    margin-bottom: 10px;
+}
+
