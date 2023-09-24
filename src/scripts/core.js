@@ -1,52 +1,66 @@
 const iniciarJogo = ()=>{
-    
+    const listaJogadores = construirJogadores(pegarElementos('#jogadores > div.jogador'));
+    if (listaJogadores.length === 0){
+        return gerarAviso('Nenhum jogador foi selecionado!');
+    }
+    esconderElementos('div.configuracoesIniciais');
+    construirTabuleiro();
+
+    return {
+        jogadores: listaJogadores,
+        qtdCasas: 100,
+        casasEspeciais: [
+            [1, +20],
+            [4, +10],
+            [13, +18],
+            [23, +19],
+            [24, -21],
+            [25, +50],
+            [30, -21],
+            [37, +21],
+            [43, -36],
+            [49, +19],
+            [51, -19],
+            [59, +18],
+            [61, -21],
+            [69, +19],
+            [71, +21],
+            [73, -40],
+            [80, +19],
+            [84, -20],
+            [94, -60],
+            [96, -52]
+        ],
+    }
 }
 
-const criarJogador = () => {
-    
-}
+const construirJogadores = (listaJogadoresDOM) =>{
+    if (listaJogadoresDOM.length === 0){
+        return [];
+    }
 
-//Função responsável por colocar um novo jogador na lista inicial de criação de jogadores.
+    const [head, ...tail] = listaJogadoresDOM;
+    const jogadorId = head.id;
+    const jogadorNome = pegarElementos(`#${jogadorId} input[type="text"]`)[0].value;
 
-const configurarNovoJogador = () => {
-    const jogadores = pegarElemento('jogadores');
-    const numJogadores = document.querySelectorAll('div.jogadores > *').length;
-    console.log(numJogadores);
-    const novoJogador = document.createElement('div');
-    novoJogador.addEventListener('input', (e) => mostrarCorEscolhida(e));
+    if (jogadorNome === ""){
+        return [...construirJogadores(tail)];
+    }
 
-    novoJogador.className = 'jogador';
+    const jogadorCor = pegarElementos(`#${jogadorId} input[type="color"]`)[0].value;
 
-    const jogadorLabelNome = document.createElement('label');
-    jogadorLabelNome.textContent = `Jogador ${numJogadores + 1}`;
-    jogadorLabelNome.setAttribute('for', `jogador${numJogadores}`);
+    const jogador = {
+        nome: jogadorNome,
+        id: jogadorId,
+        casaAtual: 0,
+        cor: jogadorCor,
+    }
 
-    const jogadorInputNome = document.createElement('input');
-    jogadorInputNome.type = 'text';
-    jogadorInputNome.id = `jogador${numJogadores}: `;
-    jogadorInputNome.placeholder = 'Nome do Jogador...';
-
-    const jogadorLabelCor = document.createElement('label');
-    jogadorLabelCor.setAttribute('for', `jogadorcolor${numJogadores}`);
-    jogadorLabelCor.classList.add('colorPicker');
-    jogadorLabelCor.title = 'Escolha a cor do jogador';
-
-    const jogadorInputCor = document.createElement('input');
-    jogadorInputCor.type = 'color';
-    jogadorInputCor.id = `jogadorcolor${numJogadores}`;
-    jogadorInputCor.classList.add('hide');
-
-    novoJogador.appendChild(jogadorLabelNome);
-    novoJogador.appendChild(jogadorInputNome);
-    novoJogador.appendChild(jogadorLabelCor);
-    novoJogador.appendChild(jogadorInputCor);
-    jogadores.appendChild(novoJogador);
-
-
+    return [jogador,...construirJogadores(tail)];
 }
 
 const construirTabuleiro = (acc=1)=>{
-    const tabuleiro = pegarElemento('tabuleiro');
+    const tabuleiro = pegarElementos('#tabuleiro')[0];
     if(acc > 100){
         tabuleiro.classList.remove('hide');
         return null;
