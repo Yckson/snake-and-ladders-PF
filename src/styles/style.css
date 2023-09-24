@@ -1,11 +1,13 @@
 @import url(./mediaQ.css);
 
+/* Define estilos globais para todos os elementos */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Define estilos para o corpo da página */
 body{
     height: 100%;
     width: 100%;
@@ -14,11 +16,13 @@ body{
     background-repeat: no-repeat;
 }
 
+/* Define estilos para a seção principal da página */
 div.main{
     height: 100vh;
     width: 100vw;
 }
 
+/* Define estilos para o tabuleiro do jogo */
 div.tabuleiro{
     display: flex;
     z-index: 2;
@@ -35,13 +39,16 @@ div.tabuleiro{
     border-collapse: collapse;
 }
 
+/* Define estilos para as casas do tabuleiro */
 div.casa{
+    position: relative;
     height: calc(100% / 10);
     width: calc(100% / 10);
     border: 1px solid black;
     border-collapse: collapse;
 }
 
+/* Define estilos para a seção de configurações iniciais do jogo */
 div.configuracoesIniciais{
     position: absolute;
     top: 50%;
@@ -59,6 +66,7 @@ div.configuracoesIniciais{
     border-radius: 15px;
 }
 
+/* Define estilos para os botões na seção de configurações iniciais */
 div.configuracoesIniciais button {
     height: min-content;
     width: min-content;
@@ -68,11 +76,13 @@ div.configuracoesIniciais button {
     border: none;
 }
 
+/* Estilos específicos para o botão de adicionar jogador */
 button#adicionarJogador{
     font-size: 24pt;
     color: rgb(8, 190, 199);
 }
 
+/* Estilos específicos para o botão de iniciar o jogo */
 button#btn-iniciar{
     font-size: 18pt;
     padding: 5px;
@@ -80,6 +90,7 @@ button#btn-iniciar{
     border-radius: 5px;
     color: white;
 }
+
 
 .container{
     width: 100px;
@@ -106,7 +117,7 @@ button#btn-iniciar{
     left: 31%;
 }
 
-p{
+p#total{
     font-size: 16px;
     margin: 30px 0;
     font-weight: 600;
@@ -167,6 +178,7 @@ div.jogador input[type="text"]{
     padding: 5px;
 }
 
+/* Define estilos para o rótulo de escolha de cor de jogador */
 label.colorPicker{
     height: 25px;
     width: 25px;
@@ -184,6 +196,43 @@ div.dado{
     background-image: url('../img/dice.png');
     background-size: cover;
     cursor: pointer;
+}
+
+/* Define estilos para a seção que contém os bonecos dos jogadores */
+div.bonecosDosJogadores{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.344);
+}
+
+/* Define estilos para um boneco de jogador individual */
+div.bonecoJogador{
+    height: 50px;
+    text-align: center;
+    padding: 1px 5px;
+    border-radius: 5px;
+}
+
+/* Define estilos para um boneco de jogador movido */
+div.bonecoMovido{
+    position: absolute;
+}
+
+/* Define estilos para o corpo (div) dentro de um boneco de jogador */
+div.bonecoJogador > div{
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+    margin: 0 auto;
+}
+
+/* Define estilos para o nome (p) do boneco do jogador */
+div.bonecoJogador > p {
+    display: block;
+    margin: 0 auto;
 }
 
 .apaga span#turnPlayer {

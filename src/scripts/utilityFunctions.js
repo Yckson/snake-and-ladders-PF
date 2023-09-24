@@ -1,15 +1,17 @@
+// Função que retorna elementos HTML com base em uma consulta CSS
 const pegarElementos = (query)=>{
     const elemento = document.querySelectorAll(query);
     return elemento;
 }
 
+// Função para mostrar a cor escolhida ao selecionar uma cor para um jogador
 const mostrarCorEscolhida = (event) => {
     const id = event.target.id.slice(-1);
     const mudarCor = document.querySelector(`label[for="jogadorColor${id}"]`);
     mudarCor.style.backgroundColor = event.target.value;
 }
 
-//Função responsável por colocar um novo jogador na lista inicial de criação de jogadores.
+// Função responsável por adicionar um novo jogador à lista inicial de criação de jogadores
 
 const configurarNovoJogador = () => {
     const jogadores = pegarElementos('#jogadores')[0];
@@ -55,15 +57,18 @@ const configurarNovoJogador = () => {
 
 }
 
+// Função para obter o número de jogadores na lista
 const pegarNumJogadores = () => {
     const numJogadores = pegarElementos('div.jogadores > div.jogador').length;
     return numJogadores;
 }
 
+// Função para gerar um aviso (alerta) com um texto específico
 const gerarAviso = (text) => {
     alert(text);
 }
 
+// Função para esconder elementos com base em um seletor CSS
 const esconderElementos = (indentificador) => {
     const elemento = pegarElementos(`${indentificador}`);
     const esconderElementosAux = (lista) => {
@@ -71,9 +76,39 @@ const esconderElementos = (indentificador) => {
             return null;
         }
         const [head, ...tail] = lista;
-        head.classList.add('hide');
+        head.classList.add('hide'); // Adiciona a classe 'hide' para ocultar o elemento
         console.log(head);
         return esconderElementosAux(tail);
     }
     return esconderElementosAux(elemento);
-}  
+}
+
+// Função para colocar o boneco de um jogador no tabuleiro
+const colocarBonecoJogador = (jogador) => {
+    const boneco = document.createElement('div');
+    const bonecoNome = document.createElement('p');
+    const bonecoCorpo = document.createElement('div');
+
+    bonecoNome.textContent = jogador.nome;
+    bonecoNome.style.color = jogador.cor;
+
+    boneco.classList.add('bonecoJogador');
+    boneco.classList.add(`bonecoInicio`);
+    boneco.id = `${jogador.id}boneco`;
+
+    bonecoCorpo.style.backgroundColor = jogador.cor;
+
+    boneco.appendChild(bonecoNome);
+    boneco.appendChild(bonecoCorpo);
+
+    pegarElementos('.bonecosDosJogadores')[0].appendChild(boneco);
+    console.log(boneco);
+}
+
+// Função para mover o boneco de um jogador para uma casa específica
+const moverBoneco = (jogador, numCasa) => {
+    const boneco = pegarElementos(`#${jogador.id}boneco`)[0];
+    boneco.classList.add('bonecoMovido');
+    boneco.remove();
+    pegarElementos(`#casa-${numCasa}`)[0].appendChild(boneco);
+}

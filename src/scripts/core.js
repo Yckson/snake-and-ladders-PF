@@ -1,11 +1,26 @@
+// Função que inicia o jogo
 const iniciarJogo = ()=>{
+    // Obtém a lista de jogadores a partir dos elementos DOM
     const listaJogadores = construirJogadores(pegarElementos('#jogadores > div.jogador'));
     if (listaJogadores.length === 0){
         return gerarAviso('Nenhum jogador foi selecionado!');
     }
+    // Esconde elementos de configuração inicial e constrói o tabuleiro
     esconderElementos('div.configuracoesIniciais');
     construirTabuleiro();
 
+    // Coloca os jogadores no tabuleiro
+    listaJogadores.map((jogador)=>{
+        console.log(jogador);
+        colocarBonecoJogador(jogador);
+    })
+
+    //moverBoneco(listaJogadores[0], 10);
+    //moverBoneco(listaJogadores[1], 10);
+    //moverBoneco(listaJogadores[2], 10);
+    //moverBoneco(listaJogadores[3], 10);
+
+    // Retorna os dados iniciais do jogo
     return {
         jogadores: listaJogadores,
         qtdCasas: 100,
@@ -34,6 +49,7 @@ const iniciarJogo = ()=>{
     }
 }
 
+// Função que constrói a lista de jogadores a partir dos elementos DOM
 const construirJogadores = (listaJogadoresDOM) =>{
     if (listaJogadoresDOM.length === 0){
         return [];
@@ -59,24 +75,42 @@ const construirJogadores = (listaJogadoresDOM) =>{
     return [jogador,...construirJogadores(tail)];
 }
 
-const construirTabuleiro = (acc=1)=>{
+// Função que constrói o tabuleiro
+const construirTabuleiro = (acc=10)=>{
     const tabuleiro = pegarElementos('#tabuleiro')[0];
-    if(acc > 100){
+    if (acc === 0){
+        //console.log(pegarElementos('#tabuleiro > div')[90].id = 'casa-1');
         tabuleiro.classList.remove('hide');
         return null;
     }
-    
-    tabuleiro.appendChild(criarCasa(acc));
+    if (acc % 2 === 0) construirTabuleiroAux(acc, acc-1, tabuleiro);
+    else construirTabuleiroAux(acc-0.9, acc+0.1, tabuleiro);
 
-    return construirTabuleiro(acc + 1);
+    return construirTabuleiro(acc - 1);
+}
+
+// Função auxiliar para construir o tabuleiro
+const construirTabuleiroAux = (acc, final, tabuleiro) => {
+    tabuleiro = pegarElementos('#tabuleiro')[0];
+    if (acc === final) return null;
+    if (final < acc){
+        tabuleiro.appendChild(criarCasa(acc * 10));
+        return construirTabuleiroAux(parseFloat((acc - 0.1).toFixed(1)), final);
+    }
+    else {
+        tabuleiro.appendChild(criarCasa(acc * 10));
+        return construirTabuleiroAux(parseFloat((acc + 0.1).toFixed(1)), final);
+    }
 
 }
 
+// Função que cria uma casa do tabuleiro
 const criarCasa = (id)=>{
     const casa = document.createElement('div');
 
     casa.classList.add('casa');
-    casa.id = id;
+    if (id < 1) casa.id = `casa-1`;
+    else casa.id = `casa-${id}`;
 
     return casa;
 }
