@@ -8,5 +8,6 @@ pegarElementos('#adicionarJogador')[0].addEventListener('click', configurarNovoJ
 
 // Adiciona um ouvinte de evento ao botão com id 'btn-iniciar' para iniciar o jogo ao clicar nele.
 pegarElementos('#btn-iniciar')[0].addEventListener('click', () => {
-    console.log(iniciarJogo());
+    const main = iniciarJogo();
+    globalThis.main = main;
 });

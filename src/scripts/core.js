@@ -11,7 +11,6 @@ const iniciarJogo = ()=>{
 
     // Coloca os jogadores no tabuleiro
     listaJogadores.map((jogador)=>{
-        console.log(jogador);
         colocarBonecoJogador(jogador);
     })
 

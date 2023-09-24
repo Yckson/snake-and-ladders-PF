@@ -77,7 +77,6 @@ const esconderElementos = (indentificador) => {
         }
         const [head, ...tail] = lista;
         head.classList.add('hide'); // Adiciona a classe 'hide' para ocultar o elemento
-        console.log(head);
         return esconderElementosAux(tail);
     }
     return esconderElementosAux(elemento);
@@ -102,7 +101,6 @@ const colocarBonecoJogador = (jogador) => {
     boneco.appendChild(bonecoCorpo);
 
     pegarElementos('.bonecosDosJogadores')[0].appendChild(boneco);
-    console.log(boneco);
 }
 
 // Função para mover o boneco de um jogador para uma casa específica
