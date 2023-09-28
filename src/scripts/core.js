@@ -162,26 +162,29 @@ const rolar = () => {
   
 //DDGSD
 
-const jogador1Input = document.getElementById("player1");
-const jogador2Input = document.getElementById("player2");
+const jogador1Input = pegarElementos('#player1')[0]
+const jogador2Input = pegarElementos('#player2')[0]
 
-let jogadorAtual = jogador1Input.value;
+let jogadorAtual = jogador1Input.value
 
 const alternarJogador = () => {
     if (jogadorAtual === jogador1Input.value) {
-        jogadorAtual = jogador2Input.value;
+        jogadorAtual = jogador2Input.value
     } else {
-        jogadorAtual = jogador1Input.value;
+        jogadorAtual = jogador1Input.value
     }
   
-    const turnoDoJogador = document.querySelector("#turnPlayer");
-    turnoDoJogador.textContent = `Vez de: ${jogadorAtual}`;
+    const turnoDoJogador = pegarElementos("#turnPlayer")[0]
+    turnoDoJogador.textContent = `Vez de: ${jogadorAtual}`
 }
 
 const rolarEAtualizarJogador = () => {
-    rolar(); 
-    alternarJogador(); 
+    rolar()
+    alternarJogador()
 }
 
-const btnRolarDado = document.querySelector("#btn-rolar");
-btnRolarDado.addEventListener("click", rolarEAtualizarJogador);
+const btnRolarDado = pegarElementos("#btn-rolar")[0]
+btnRolarDado.addEventListener("click", rolarEAtualizarJogador)
+
+
+//mude a associação de jogadores da vez dos inpurts #player1 e #player2 para os jogadores do objeto jogadores
