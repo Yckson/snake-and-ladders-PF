@@ -19,6 +19,8 @@ const iniciarJogo = ()=>{
     //moverBoneco(listaJogadores[2], 10);
     //moverBoneco(listaJogadores[3], 10);
 
+    mostrarDado();
+
     // Retorna os dados iniciais do jogo
     return {
         jogadores: listaJogadores,
@@ -45,6 +47,19 @@ const iniciarJogo = ()=>{
             [94, -60],
             [96, -52]
         ],
+        dado : {
+            elemento: pegarElementos("img#foto")[0],
+            imagens: [
+                "dado-01.svg",
+                "dado-02.svg",
+                "dado-03.svg",
+                "dado-04.svg",
+                "dado-05.svg",
+                "dado-06.svg"
+            ],
+
+            jogadorAtual: listaJogadores[0]
+        }
     }
 }
 
@@ -130,6 +145,7 @@ const dado = document.querySelectorAll("img");
 // Função que irá colocar a animação de agitar a imagem do dado ao pressionar o botão de rolar o dado.
 // Isso é feito através da propriedade classList, que permite o acesso à lista de classes dos elementos.
 const adicionarClasseAgitar = (foto) => {
+    console.log(foto)
     foto.classList.add("agitar");
 }
 
@@ -141,8 +157,8 @@ const removerClasseAgitar = (foto) => {
 // Função encarregada de sempre mudar o valor que foi rolado no dado.
 const atualizarDado = (valorDado) => {
     // Seleção dos elementos por meio dos IDs.
-    const fotoElemento = document.querySelector("#foto");
-    const totalElemento = document.querySelector("#total");
+    const fotoElemento = pegarElementos("#foto")[0];
+    const totalElemento = pegarElementos("#total")[0];
     // Aqui ocorre a sincronia da imagem que será mostrada do valor obtido no dado.
     // Ex: se o valor do dado for 1, será exibido o que está armazena no index 0 da lista de imagens.
     fotoElemento.setAttribute("src", imagens[valorDado]); //Atualiza o atributo da imagem.
@@ -150,11 +166,11 @@ const atualizarDado = (valorDado) => {
 }
 
 // Função que permite rolar o dado ao pressionar o botão especificado.
-const rolar = () => {
+const rolar = (dado) => {
     // Através do forEach, é adicionado a classe "agitar" a cada uma das imagens.
-    dado.forEach(adicionarClasseAgitar);
+    adicionarClasseAgitar(dado);
     setTimeout(() => { // 1s de delay para evitar o spam no clique de rolagem do dado.
-    dado.forEach(removerClasseAgitar); // Remoção do efeito de agitação.
+    removerClasseAgitar(dado); // Remoção do efeito de agitação.
     const valorDado = Math.floor(Math.random() * 6); // Valor aleatório gerado entre 0 e 5.
     atualizarDado(valorDado); // Chamando a função responsável por atualizar as propriedades do dado
     }, 1000);
@@ -179,12 +195,9 @@ const alternarJogador = () => {
 }
 
 const rolarEAtualizarJogador = () => {
-    rolar()
+    rolar(main.dado.elemento);
     alternarJogador()
 }
-
-const btnRolarDado = pegarElementos("#btn-rolar")[0]
-btnRolarDado.addEventListener("click", rolarEAtualizarJogador)
 
 
 //mude a associação de jogadores da vez dos inpurts #player1 e #player2 para os jogadores do objeto jogadores

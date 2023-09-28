@@ -16,7 +16,7 @@ const mostrarCorEscolhida = (event) => {
 const configurarNovoJogador = () => {
     const jogadores = pegarElementos('#jogadores')[0];
     const numJogadores = pegarNumJogadores();
-    if (numJogadores === 4){
+    if (numJogadores >= 4){
         alert('Você já possui 4 jogadores!');
         return null;
     } 
@@ -109,4 +109,9 @@ const moverBoneco = (jogador, numCasa) => {
     boneco.classList.add('bonecoMovido');
     boneco.remove();
     pegarElementos(`#casa-${numCasa}`)[0].appendChild(boneco);
+}
+
+const mostrarDado = () => {
+    const dado = pegarElementos('div.container')[0];
+    dado.classList.remove('hide');
 }
