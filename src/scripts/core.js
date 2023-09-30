@@ -7,7 +7,7 @@ const iniciarJogo = ()=>{
     }
     // Esconde elementos de configuração inicial e constrói o tabuleiro
     esconderElementos('div.configuracoesIniciais');
-    construirTabuleiro();
+    //construirTabuleiro();
 
     // Coloca os jogadores no tabuleiro
     listaJogadores.map((jogador)=>{
@@ -140,7 +140,8 @@ const imagens = [
 ];
 
 // Dentro da constante dado será armazenada uma lista com todos os elementos "img".
-const dado = document.querySelectorAll("img");
+ const dado = document.querySelectorAll("img");
+
 
 // Função que irá colocar a animação de agitar a imagem do dado ao pressionar o botão de rolar o dado.
 // Isso é feito através da propriedade classList, que permite o acesso à lista de classes dos elementos.
@@ -176,28 +177,70 @@ const rolar = (dado) => {
     }, 1000);
 }
   
+
+
 //DDGSD
 
-const jogador1Input = pegarElementos('#player1')[0]
-const jogador2Input = pegarElementos('#player2')[0]
+//nessa função, há alguma interferencia ao utilizar o evento, pois o dado para de funcionar(apenas erros kkkryng)
+/*
+const alternarJogadorDaVez = () => {
+    
+    const dado = main.dado
+    const jogadores = dado.jogadores
+    let jogadorAtualIndex = jogadores.indexOf(dado.jogadorAtual)
 
-let jogadorAtual = jogador1Input.value
+    //move pro proximo jogador
+    jogadorAtualIndex++
 
-const alternarJogador = () => {
-    if (jogadorAtual === jogador1Input.value) {
-        jogadorAtual = jogador2Input.value
-    } else {
-        jogadorAtual = jogador1Input.value
+    //volta pro jpgador 1
+    if (jogadorAtualIndex >= jogadores.length) {
+        jogadorAtualIndex = 0
     }
-  
+
+    
+    dado.jogadorAtual = jogadores[jogadorAtualIndex]
+
+    
     const turnoDoJogador = pegarElementos("#turnPlayer")[0]
-    turnoDoJogador.textContent = `Vez de: ${jogadorAtual}`
+    turnoDoJogador.textContent = dado.jogadorAtual.nome
+}
+const btnAlternarJogador = pegarElementos("#btn-rolar")[0];
+btnAlternarJogador.addEventListener("click", alternarJogadorDaVez);
+
+*/
+
+
+
+const alternarJogadorDaVez = () => {
+    const dado = main.dado;
+
+    //verificar se main.dado ou a lista de jogadores estao vazias ou indef
+    if (dado && dado.jogadores && dado.jogadores.length > 0) {
+        const jogadores = dado.jogadores
+        console.log(jogadores)
+        let jogadorAtualIndex = jogadores.indexOf(dado.jogadorAtual)
+
+        
+        jogadorAtualIndex++
+
+        
+        if (jogadorAtualIndex >= jogadores.length) {
+            jogadorAtualIndex = 0
+        }
+
+        //atualizar o jogador atual npo obj
+        dado.jogadorAtual = jogadores[jogadorAtualIndex]
+
+        const turnoDoJogador = pegarElementos("#turnPlayer")[0]
+        turnoDoJogador.textContent = dado.jogadorAtual.nome
+    } else {
+        console.error("O objeto main.dado ou a lista de jogadores está indefinido ou vazio.")
+    }
+     console.log(main)
 }
 
 const rolarEAtualizarJogador = () => {
-    rolar(main.dado.elemento);
-    alternarJogador()
+    rolar(main.dado.elemento)
+    alternarJogadorDaVez()
 }
 
-
-//mude a associação de jogadores da vez dos inpurts #player1 e #player2 para os jogadores do objeto jogadores
