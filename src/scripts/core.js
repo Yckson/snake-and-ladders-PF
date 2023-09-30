@@ -214,29 +214,28 @@ btnAlternarJogador.addEventListener("click", alternarJogadorDaVez);
 const alternarJogadorDaVez = () => {
     const dado = main.dado;
 
-    //verificar se main.dado ou a lista de jogadores estao vazias ou indef
-    if (dado && dado.jogadores && dado.jogadores.length > 0) {
-        const jogadores = dado.jogadores
-        console.log(jogadores)
-        let jogadorAtualIndex = jogadores.indexOf(dado.jogadorAtual)
+    // Verificar se main.dado ou a lista de jogadores estão vazias ou indefinidas
+    if (dado && main.jogadores && main.jogadores.length > 0) {
+        const jogadores = main.jogadores;
+        let jogadorAtualIndex = jogadores.indexOf(dado.jogadorAtual);
 
-        
-        jogadorAtualIndex++
+        jogadorAtualIndex++;
 
-        
         if (jogadorAtualIndex >= jogadores.length) {
-            jogadorAtualIndex = 0
+            jogadorAtualIndex = 0;
         }
 
-        //atualizar o jogador atual npo obj
-        dado.jogadorAtual = jogadores[jogadorAtualIndex]
+        // Agora, utilize setTimeout para adicionar o delay antes de atualizar o jogador
+        setTimeout(() => {
+            // Atualizar o jogador atual no objeto
+            dado.jogadorAtual = jogadores[jogadorAtualIndex];
 
-        const turnoDoJogador = pegarElementos("#turnPlayer")[0]
-        turnoDoJogador.textContent = dado.jogadorAtual.nome
+            const turnoDoJogador = pegarElementos("#turnPlayer")[0];
+            turnoDoJogador.textContent = `Vez de: ${dado.jogadorAtual.nome}`;
+        }, 2000); // Delay de 2 segundo (2000 milissegundos)
     } else {
-        console.error("O objeto main.dado ou a lista de jogadores está indefinido ou vazio.")
+        console.error("O objeto main.dado ou a lista de jogadores está indefinido ou vazio.");
     }
-     console.log(main)
 }
 
 const rolarEAtualizarJogador = () => {

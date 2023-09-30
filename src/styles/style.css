@@ -235,9 +235,7 @@ div.bonecoJogador > p {
     margin: 0 auto;
 }
 
-.apaga span#turnPlayer {
-    font-size: 14px; 
-    margin-top: -5px; 
-    margin-bottom: 10px;
+#turnPlayer {
+    font-size: 12px; /* Tamanho da fonte desejado */
+    white-space: nowrap; /* Impede a quebra de linha automática */
 }
-
