@@ -115,3 +115,11 @@ const mostrarDado = () => {
     const dado = pegarElementos('div.container')[0];
     dado.classList.remove('hide');
 }
+
+// Função que mostra elementos com base no seletor CSS
+const mostrarElementos = (seletor) => {
+    const elementos = document.querySelectorAll(seletor);
+    elementos.forEach(elemento => {
+        elemento.style.display = 'block';
+    });
+}

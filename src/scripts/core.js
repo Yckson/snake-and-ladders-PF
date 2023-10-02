@@ -180,37 +180,6 @@ const rolar = (dado) => {
 
 
 //DDGSD
-
-//nessa função, há alguma interferencia ao utilizar o evento, pois o dado para de funcionar(apenas erros kkkryng)
-/*
-const alternarJogadorDaVez = () => {
-    
-    const dado = main.dado
-    const jogadores = dado.jogadores
-    let jogadorAtualIndex = jogadores.indexOf(dado.jogadorAtual)
-
-    //move pro proximo jogador
-    jogadorAtualIndex++
-
-    //volta pro jpgador 1
-    if (jogadorAtualIndex >= jogadores.length) {
-        jogadorAtualIndex = 0
-    }
-
-    
-    dado.jogadorAtual = jogadores[jogadorAtualIndex]
-
-    
-    const turnoDoJogador = pegarElementos("#turnPlayer")[0]
-    turnoDoJogador.textContent = dado.jogadorAtual.nome
-}
-const btnAlternarJogador = pegarElementos("#btn-rolar")[0];
-btnAlternarJogador.addEventListener("click", alternarJogadorDaVez);
-
-*/
-
-
-
 const alternarJogadorDaVez = () => {
     const dado = main.dado;
 
@@ -225,7 +194,7 @@ const alternarJogadorDaVez = () => {
             jogadorAtualIndex = 0;
         }
 
-        // Agora, utilize setTimeout para adicionar o delay antes de atualizar o jogador
+        // setTimeout para adicionar o delay antes de atualizar o jogador
         setTimeout(() => {
             // Atualizar o jogador atual no objeto
             dado.jogadorAtual = jogadores[jogadorAtualIndex];
@@ -242,4 +211,38 @@ const rolarEAtualizarJogador = () => {
     rolar(main.dado.elemento)
     alternarJogadorDaVez()
 }
+
+
+//está reiniciando o jogo com os mesmos jogadores 
+const  reiniciarJogo =() => {
+    //Limpar o tabuleiro (remover as casas)
+    const tabuleiro = pegarElementos('#tabuleiro')[0];
+    tabuleiro.innerHTML = ''
+
+    // Reinicializar os jogadores
+    const listaJogadoresDOM = pegarElementos('#jogadores > div.jogador');
+    const listaJogadores = construirJogadores(listaJogadoresDOM);
+
+    // Exibir elementos de configuração inicial
+    mostrarElementos('div.configuracoesIniciais');
+
+    // Limpar o dado e o total
+    const fotoElemento = pegarElementos('#foto')[0];
+    const totalElemento = pegarElementos('#total')[0];
+    fotoElemento.setAttribute('src', ''); // Limpar a imagem do dado
+    totalElemento.textContent = ''; // Limpar o texto do total
+
+    // Atualizar o jogador atual para o primeiro jogador na lista
+    if (listaJogadores.length > 0) {
+        main.dado.jogadorAtual = listaJogadores[0];
+    }
+
+    // Atualizar a exibição do jogador atual
+    const turnoDoJogador = pegarElementos('#turnPlayer')[0];
+    turnoDoJogador.textContent = `Vez de: ${main.dado.jogadorAtual.nome}`;
+}
+
+const btnReiniciarJogo = pegarElementos('#btn-reiniciarJogo')[0];
+btnReiniciarJogo.addEventListener('click', reiniciarJogo);
+
 
