@@ -119,7 +119,5 @@ const mostrarDado = () => {
 // Função que mostra elementos com base no seletor CSS
 const mostrarElementos = (seletor) => {
     const elementos = document.querySelectorAll(seletor);
-    elementos.forEach(elemento => {
-        elemento.style.display = 'block';
-    });
+    
 }

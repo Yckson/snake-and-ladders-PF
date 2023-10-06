@@ -7,7 +7,7 @@ const iniciarJogo = ()=>{
     }
     // Esconde elementos de configuração inicial e constrói o tabuleiro
     esconderElementos('div.configuracoesIniciais');
-    //construirTabuleiro();
+    construirTabuleiro();
 
     // Coloca os jogadores no tabuleiro
     listaJogadores.map((jogador)=>{
@@ -214,10 +214,24 @@ const rolarEAtualizarJogador = () => {
 
 
 //está reiniciando o jogo com os mesmos jogadores 
-const  reiniciarJogo =() => {
+const reiniciarJogo = () => {
     //Limpar o tabuleiro (remover as casas)
     const tabuleiro = pegarElementos('#tabuleiro')[0];
-    tabuleiro.innerHTML = ''
+    tabuleiro.remove()
+    const novoTabuleiro = document.createElement('div');
+    novoTabuleiro.classList.add('tabuleiro');
+    novoTabuleiro.classList.add('hide');
+    novoTabuleiro.id = 'tabuleiro';
+
+    const divPrincipal = pegarElementos('div.main')[0];
+    divPrincipal.appendChild(novoTabuleiro);
+
+    const configuracoesIniciais = pegarElementos('div.configuracoesIniciais')[0];
+    
+
+
+
+
 
     // Reinicializar os jogadores
     const listaJogadoresDOM = pegarElementos('#jogadores > div.jogador');
