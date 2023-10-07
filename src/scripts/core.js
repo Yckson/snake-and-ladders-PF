@@ -1,7 +1,10 @@
-// Função que inicia o jogo
+// http://127.0.0.1:5500/
+
+// Função que inicia o jogo 
 const iniciarJogo = ()=>{
     // Obtém a lista de jogadores a partir dos elementos DOM
     const listaJogadores = construirJogadores(pegarElementos('#jogadores > div.jogador'));
+    console.log(listaJogadores);
     if (listaJogadores.length === 0){
         return gerarAviso('Nenhum jogador foi selecionado!');
     }
@@ -170,11 +173,12 @@ const atualizarDado = (valorDado) => {
 const rolar = (dado) => {
     // Através do forEach, é adicionado a classe "agitar" a cada uma das imagens.
     adicionarClasseAgitar(dado);
+    const valorDado = Math.floor(Math.random() * 6); // Valor aleatório gerado entre 0 e 5.
     setTimeout(() => { // 1s de delay para evitar o spam no clique de rolagem do dado.
     removerClasseAgitar(dado); // Remoção do efeito de agitação.
-    const valorDado = Math.floor(Math.random() * 6); // Valor aleatório gerado entre 0 e 5.
     atualizarDado(valorDado); // Chamando a função responsável por atualizar as propriedades do dado
     }, 1000);
+    return valorDado;
 }
   
 
@@ -195,21 +199,23 @@ const alternarJogadorDaVez = () => {
         }
 
         // setTimeout para adicionar o delay antes de atualizar o jogador
-        setTimeout(() => {
+        
             // Atualizar o jogador atual no objeto
             dado.jogadorAtual = jogadores[jogadorAtualIndex];
 
             const turnoDoJogador = pegarElementos("#turnPlayer")[0];
             turnoDoJogador.textContent = `Vez de: ${dado.jogadorAtual.nome}`;
-        }, 2000); // Delay de 2 segundo (2000 milissegundos)
+     
     } else {
         console.error("O objeto main.dado ou a lista de jogadores está indefinido ou vazio.");
     }
 }
 
 const rolarEAtualizarJogador = () => {
-    rolar(main.dado.elemento)
-    alternarJogadorDaVez()
+    const valorDoDado = rolar(main.dado.elemento);
+    verificaDado(main.dado.jogadorAtual, valorDoDado + 1);
+    alternarJogadorDaVez();
+    
 }
 
 
@@ -217,28 +223,29 @@ const rolarEAtualizarJogador = () => {
 const reiniciarJogo = () => {
     //Limpar o tabuleiro (remover as casas)
     const tabuleiro = pegarElementos('#tabuleiro')[0];
+    removerBonecos(main.jogadores);
     tabuleiro.remove()
     const novoTabuleiro = document.createElement('div');
     novoTabuleiro.classList.add('tabuleiro');
+    novoTabuleiro.id = 'tabuleiro';
+    
+    /*
     novoTabuleiro.classList.add('hide');
     novoTabuleiro.id = 'tabuleiro';
-
+    */
     const divPrincipal = pegarElementos('div.main')[0];
     divPrincipal.appendChild(novoTabuleiro);
-
-    const configuracoesIniciais = pegarElementos('div.configuracoesIniciais')[0];
-    
-
-
-
-
+    /*
+    mostrarElemento('div.configuracoesIniciais');
+    */
+    globalThis.main = iniciarJogo();
 
     // Reinicializar os jogadores
     const listaJogadoresDOM = pegarElementos('#jogadores > div.jogador');
     const listaJogadores = construirJogadores(listaJogadoresDOM);
 
     // Exibir elementos de configuração inicial
-    mostrarElementos('div.configuracoesIniciais');
+    mostrarElemento('div.configuracoesIniciais');
 
     // Limpar o dado e o total
     const fotoElemento = pegarElementos('#foto')[0];
@@ -250,7 +257,7 @@ const reiniciarJogo = () => {
     if (listaJogadores.length > 0) {
         main.dado.jogadorAtual = listaJogadores[0];
     }
-
+    
     // Atualizar a exibição do jogador atual
     const turnoDoJogador = pegarElementos('#turnPlayer')[0];
     turnoDoJogador.textContent = `Vez de: ${main.dado.jogadorAtual.nome}`;
@@ -259,4 +266,45 @@ const reiniciarJogo = () => {
 const btnReiniciarJogo = pegarElementos('#btn-reiniciarJogo')[0];
 btnReiniciarJogo.addEventListener('click', reiniciarJogo);
 
+const jogarNovamente = () => {
+     location.reload()
+}
+
+const btnJogarNovamente = pegarElementos('#btn-jogarNovamente')[0]
+btnJogarNovamente.addEventListener('click', jogarNovamente)
+
+const verificaDado = (jogador, valorDado) => {
+  const casaAtual = jogador.casaAtual
+  const casaEspecial = main.casasEspeciais
+  jogador.casaAtual = jogador.casaAtual + valorDado
+  console.log(valorDado);
+
+  if (jogador.casaAtual > 100) {
+    jogador.casaAtual = 100
+  }
+
+    main.casasEspeciais.map((casaEspecial) => {
+    if (jogador.casaAtual === casaEspecial[0]) {
+    const acao = casaEspecial[1]
+
+        if (jogador.casaAtual === 100) {
+        gerarAviso(`Parabéns! ${jogadorAtual.nome} ganhou o jogo`)
+        console.log(`${jogador.nome} ganhou`)
+        reiniciarJogo()
+    
+        }else {
+
+        jogador.casaAtual += acao
+        gerarAviso(`${jogador.nome} caiu em uma casa especial e avançou &{acao} casas.`)
+        console.log(`${jogador.nome} caiu em uma casa especial e avançou &{acao} casas.`)
+        
+        }
+
+
+    }
+})
+console.log(jogador)
+moverBoneco(jogador, jogador.casaAtual)
+
+}
 

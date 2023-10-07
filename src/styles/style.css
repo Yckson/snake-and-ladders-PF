@@ -210,6 +210,7 @@ div.bonecosDosJogadores{
 
 /* Define estilos para um boneco de jogador individual */
 div.bonecoJogador{
+    transition: ease-in-out 1s;
     height: 50px;
     text-align: center;
     padding: 1px 5px;

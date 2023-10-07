@@ -117,7 +117,20 @@ const mostrarDado = () => {
 }
 
 // Função que mostra elementos com base no seletor CSS
-const mostrarElementos = (seletor) => {
-    const elementos = document.querySelectorAll(seletor);
-    
+const mostrarElemento = (seletor) => {
+    const elemento = pegarElementos(seletor)[0];
+    elemento.classList.remove('hide');
+}
+
+const removerBonecos = (jogadores) => {
+    if (jogadores.length === 0){
+        return null;
+    }
+
+    else{
+        const [head, ...tail] = jogadores;
+        console.log(pegarElementos(`#${head.id}boneco`)[0])
+        pegarElementos(`#${head.id}boneco`)[0].remove();
+        return removerBonecos(tail); //
+    }
 }
