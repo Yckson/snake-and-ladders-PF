@@ -1,10 +1,13 @@
 @import url(./mediaQ.css);
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
 
 /* Define estilos globais para todos os elementos */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
 }
 
 /* Define estilos para o corpo da página */
@@ -105,7 +108,18 @@ button#btn-iniciar{
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: "Poppins",sans-serif;
+    font-family:  'Press Start 2P', cursive;
+}
+
+#total {
+    font-family:'Lalezar', cursive !important;
+    font-size: 18pt !important;
+}
+
+#turnPlayer {
+    font-family:'Lalezar', cursive !important;
+    font-size: 18pt !important;
+    
 }
 
 .dado{
@@ -168,14 +182,21 @@ div.jogadores{
 
 div.jogador{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     padding: 10px 10px;
     border-bottom: 1px solid gray;
+    
+}
+
+div.jogador label {
+    font-family:'Lalezar', cursive !important;
+    letter-spacing: 3px;
 }
 
 div.jogador input[type="text"]{
     padding: 5px;
+    font-family:'Lalezar', cursive !important;
 }
 
 /* Define estilos para o rótulo de escolha de cor de jogador */
@@ -205,7 +226,14 @@ div.bonecosDosJogadores{
     position: absolute;
     bottom: 5px;
     left: 15px;
-    background-color: rgba(0, 0, 0, 0.344);
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+
+    
+}
+
+div.bonecosDosJogadores p{
+    font-family:'Lalezar', cursive !important;
 }
 
 /* Define estilos para um boneco de jogador individual */
@@ -217,10 +245,16 @@ div.bonecoJogador{
     border-radius: 5px;
 }
 
+div.bonecoJogador p{
+    -webkit-text-stroke-width: 0.5px; /* largura da borda */
+    -webkit-text-stroke-color: #000; /* cor da borda */
+}
+
 /* Define estilos para um boneco de jogador movido */
 div.bonecoMovido{
     position: absolute;
 }
+
 
 /* Define estilos para o corpo (div) dentro de um boneco de jogador */
 div.bonecoJogador > div{
@@ -239,4 +273,47 @@ div.bonecoJogador > p {
 #turnPlayer {
     font-size: 12px; /* Tamanho da fonte desejado */
     white-space: nowrap; /* Impede a quebra de linha automática */
+}
+
+div#telaVitoria{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+button#btn-jogarNovamente{
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #2075f4;
+    color: white;
+    border: solid 1px white;
+    cursor: pointer;
+    text-align: center;
+}
+
+button#btn-reiniciarJogo{
+    position: absolute;
+    padding: 15px;
+    border-radius: 10px;
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
+    background-color: #2075f4;
+    color: white;
+    border: solid 1px white;
+    cursor: pointer;
+    text-align: center;
+    z-index: 50;
 }

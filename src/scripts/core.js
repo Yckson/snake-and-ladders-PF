@@ -23,6 +23,7 @@ const iniciarJogo = ()=>{
     //moverBoneco(listaJogadores[3], 10);
 
     mostrarDado();
+    mostrarElemento('#btn-reiniciarJogo');
 
     // Retorna os dados iniciais do jogo
     return {
@@ -263,19 +264,14 @@ const reiniciarJogo = () => {
     turnoDoJogador.textContent = `Vez de: ${main.dado.jogadorAtual.nome}`;
 }
 
-const btnReiniciarJogo = pegarElementos('#btn-reiniciarJogo')[0];
-btnReiniciarJogo.addEventListener('click', reiniciarJogo);
-
 const jogarNovamente = () => {
      location.reload()
 }
 
-const btnJogarNovamente = pegarElementos('#btn-jogarNovamente')[0]
-btnJogarNovamente.addEventListener('click', jogarNovamente)
-
 const verificaDado = (jogador, valorDado) => {
   const casaAtual = jogador.casaAtual
   const casaEspecial = main.casasEspeciais
+
   jogador.casaAtual = jogador.casaAtual + valorDado
   console.log(valorDado);
 
@@ -283,22 +279,27 @@ const verificaDado = (jogador, valorDado) => {
     jogador.casaAtual = 100
   }
 
+  if (jogador.casaAtual === 100) {
+
+    gerarAviso(`Parabéns! ${jogador.nome} ganhou o jogo`)
+
+    console.log(`${jogador.nome} ganhou`)
+    
+    mostrarTelaVitoria(jogador.nome)
+
+    }
+
     main.casasEspeciais.map((casaEspecial) => {
     if (jogador.casaAtual === casaEspecial[0]) {
-    const acao = casaEspecial[1]
 
-        if (jogador.casaAtual === 100) {
-        gerarAviso(`Parabéns! ${jogadorAtual.nome} ganhou o jogo`)
-        console.log(`${jogador.nome} ganhou`)
-        reiniciarJogo()
-    
-        }else {
+        const acao = casaEspecial[1]
+        console.log(jogador.casaAtual)
 
         jogador.casaAtual += acao
-        gerarAviso(`${jogador.nome} caiu em uma casa especial e avançou &{acao} casas.`)
-        console.log(`${jogador.nome} caiu em uma casa especial e avançou &{acao} casas.`)
+        gerarAviso(`${jogador.nome} caiu em uma casa especial e avançou ${acao} casas.`)
+        console.log(`${jogador.nome} caiu em uma casa especial e avançou ${acao} casas.`)
         
-        }
+        
 
 
     }
@@ -308,3 +309,10 @@ moverBoneco(jogador, jogador.casaAtual)
 
 }
 
+const  mostrarTelaVitoria = (jogadorwin) => {
+    criarTelaVitoria()
+    const tela = pegarElementos('div#telaVitoria')[0];
+    const jogador = pegarElementos('#nomeJogadorVencedor')[0];
+    jogador.innerHTML = `Parabéns! o jogador ${jogadorwin} venceu!`;
+
+}

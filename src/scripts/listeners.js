@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const main = iniciarJogo();
         globalThis.main = main;
     }
-);
+    );
+
+    pegarElementos("#btn-rolar")[0].addEventListener("click", rolarEAtualizarJogador);
+    pegarElementos("#btn-reiniciarJogo")[0].addEventListener("click", () => reiniciarJogo())
 
 
 });
@@ -18,4 +21,3 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-pegarElementos("#btn-rolar")[0].addEventListener("click", rolarEAtualizarJogador)

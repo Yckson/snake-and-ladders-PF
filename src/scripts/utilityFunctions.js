@@ -134,3 +134,22 @@ const removerBonecos = (jogadores) => {
         return removerBonecos(tail); //
     }
 }
+
+const criarTelaVitoria = () => {
+    const telaVitoria = document.createElement('div');
+    telaVitoria.id = 'telaVitoria';
+
+    const nomeDoJogador = document.createElement('p');
+    nomeDoJogador.id = 'nomeJogadorVencedor';
+
+    const botaoReiniciar = document.createElement('button');
+    botaoReiniciar.id = 'btn-jogarNovamente';
+    botaoReiniciar.innerHTML = 'Jogar Novamente';
+
+    botaoReiniciar.addEventListener('click', jogarNovamente);
+
+    telaVitoria.appendChild(nomeDoJogador);
+    telaVitoria.appendChild(botaoReiniciar);
+    pegarElementos('div.main')[0].appendChild(telaVitoria);
+
+}
