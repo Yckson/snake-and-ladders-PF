@@ -1,3 +1,4 @@
+// Objeto usado para armazenar a trilha sonora e efeitos sonoros do jogo.
 const album = {
     momentoAtual: 'menu',
     musicaAtual: configurarMusica('menu01-ost1.mp3'),

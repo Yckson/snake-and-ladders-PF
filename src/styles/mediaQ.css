@@ -1,89 +1,90 @@
+/* Conjunto de animações que foram utilizados no jogo, através das regras Keyframes */
 @keyframes mexerBonecos {
-    0% {
-      left: 0;
-    }
-    50% {
-      left: 2px;
-    }
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 2px;
+  }
 
-    100%{
-        left: 0px;
-    }
+  100%{
+      left: 0px;
+  }
 }
 
 @keyframes balancar {
-    0% {
-      left: 0;
-      top: 0;
-    }
-    50% {
-      left: 2px;
-      top: 2px;
-      background-color: rgb(178, 178, 178);
-    }
+  0% {
+    left: 0;
+    top: 0;
+  }
+  50% {
+    left: 2px;
+    top: 2px;
+    background-color: rgb(178, 178, 178);
+  }
 
-    100%{
-        left: 0px;
-        top: 0px;
-    }
+  100%{
+      left: 0px;
+      top: 0px;
+  }
 }
 
 @keyframes crescerDiminuir {
-    0% {
-      transform: scale(1) translate(-50%, -50%);
+  0% {
+    transform: scale(1) translate(-50%, -50%);
 
-    }
-    50% {
-      transform: scale(1.01) translate(-49%, -49%);
-    }
+  }
+  50% {
+    transform: scale(1.01) translate(-49%, -49%);
+  }
 
-    100%{
-      transform: scale(1) translate(-50%, -50%);
-    }
+  100%{
+    transform: scale(1) translate(-50%, -50%);
+  }
 }
 
 @keyframes agitar{
-    0%{
-        transform: rotate(8deg);
-    }
-    50%{
-        transform: rotate(-8deg);
-    }
-    100%{
-        transform: rotate(8deg);
-    }
+  0%{
+      transform: rotate(8deg);
+  }
+  50%{
+      transform: rotate(-8deg);
+  }
+  100%{
+      transform: rotate(8deg);
+  }
 }
 
 @keyframes balancarRolar {
-    0% {
-      left: 0;
-      top: 0;
-    }
-    50% {
-      left: 2px;
-      top: 2px;
-      background-color: #cf2a38;;
-    }
+  0% {
+    left: 0;
+    top: 0;
+  }
+  50% {
+    left: 2px;
+    top: 2px;
+    background-color: #cf2a38;;
+  }
 
-    100%{
-        left: 0px;
-        top: 0px;
-    }
+  100%{
+      left: 0px;
+      top: 0px;
+  }
 }
 
 @keyframes tabuleiroBrilho {
-    0% {
-      border: solid rgba(42, 152, 42, 0.408) 10px;
-    }
-    50% {
-        border: solid rgba(26, 130, 26, 0.774) 10px;
-    }
+  0% {
+    border: solid rgba(42, 152, 42, 0.408) 10px;
+  }
+  50% {
+      border: solid rgba(26, 130, 26, 0.774) 10px;
+  }
 
-    100%{
-        border: solid rgba(42, 152, 42, 0.408) 10px;
-    }
+  100%{
+      border: solid rgba(42, 152, 42, 0.408) 10px;
+  }
 }
-  
+
 .hide{
-    display: none !important;
+  display: none !important;
 }
