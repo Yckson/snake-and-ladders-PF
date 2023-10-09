@@ -88,7 +88,7 @@ const colocarBonecoJogador = (jogador) => {
     const bonecoNome = document.createElement('p');
     const bonecoCorpo = document.createElement('div');
 
-    bonecoNome.textContent = jogador.nome;
+    bonecoNome.textContent = jogador.nome.length > 5 ? jogador.nome.substring(0, 5) : jogador.nome;
     bonecoNome.style.color = jogador.cor;
 
     boneco.classList.add('bonecoJogador');
@@ -106,9 +106,11 @@ const colocarBonecoJogador = (jogador) => {
 // Função para mover o boneco de um jogador para uma casa específica
 const moverBoneco = (jogador, numCasa) => {
     const boneco = pegarElementos(`#${jogador.id}boneco`)[0];
+    
     boneco.classList.add('bonecoMovido');
     boneco.remove();
     pegarElementos(`#casa-${numCasa}`)[0].appendChild(boneco);
+    
 }
 
 const mostrarDado = () => {
@@ -129,7 +131,6 @@ const removerBonecos = (jogadores) => {
 
     else{
         const [head, ...tail] = jogadores;
-        console.log(pegarElementos(`#${head.id}boneco`)[0])
         pegarElementos(`#${head.id}boneco`)[0].remove();
         return removerBonecos(tail); //
     }
@@ -153,3 +154,79 @@ const criarTelaVitoria = () => {
     pegarElementos('div.main')[0].appendChild(telaVitoria);
 
 }
+
+const configurarMusica = (nomeDaFaixa) => {
+    const faixa = document.createElement('audio');
+    faixa.src = `../src/ost/${nomeDaFaixa}`;
+    faixa.id = nomeDaFaixa;
+    faixa.addEventListener('ended', ()=>{
+        verificarMomento(faixa);
+    })
+    return faixa;
+}
+
+const tocarMusica = (faixa) => {
+    faixa.play(faixa);
+}
+
+const verificarMomento = (faixa) => {
+    if (album.momentoAtual === 'menu'){
+        if (faixa === album.menu01){
+            trocarMusica(album.menu02);
+        }
+        else {
+            trocarMusica(album.menu01);
+        }
+    }
+
+    else if (album.momentoAtual === 'em jogo'){
+        if (faixa === album.coreDia01){
+            trocarMusica(album.coreDia02);
+        }
+        else if (faixa === album.coreDia02){
+            trocarMusica(album.coreNoite01);
+        }
+        else if (faixa === album.coreNoite01){
+            trocarMusica(album.coreNoite02);
+        }
+        else{
+            trocarMusica(album.coreDia01);
+        }
+    }
+
+    else if (album.momentoAtual === 'vitoria'){
+        trocarMusica(album.victory01);
+    }
+    
+}
+
+const trocarMusica = (faixa) => {
+    album.musicaAtual.pause();
+    album.musicaAtual = faixa;
+    tocarMusica(album.musicaAtual);
+}
+
+const mudarMomento = (momento) => {
+    album.momentoAtual = momento;
+
+}
+
+const interacaoUsuario = () => {
+    const interacao = document.createElement('div');
+    const interacaoMensagem = document.createElement('p');
+    const interacaoBotao = document.createElement('button');
+
+    interacao.id = 'interacao';
+    interacaoMensagem.innerHTML = 'Por favor, aperte no botão para iniciar o jogo!';
+    interacaoBotao.innerHTML = 'PROSSEGUIR!';
+
+    interacao.appendChild(interacaoMensagem);
+    interacao.appendChild(interacaoBotao);
+    pegarElementos('div.main')[0].appendChild(interacao);
+
+}
+
+async function esperar(tempo, funcao) {
+    await new Promise(resolve => setTimeout(resolve, tempo)); // Aguarda 2 segundos
+    funcao();
+  }

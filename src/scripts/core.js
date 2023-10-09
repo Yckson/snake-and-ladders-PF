@@ -4,7 +4,6 @@
 const iniciarJogo = ()=>{
     // Obtém a lista de jogadores a partir dos elementos DOM
     const listaJogadores = construirJogadores(pegarElementos('#jogadores > div.jogador'));
-    console.log(listaJogadores);
     if (listaJogadores.length === 0){
         return gerarAviso('Nenhum jogador foi selecionado!');
     }
@@ -24,6 +23,8 @@ const iniciarJogo = ()=>{
 
     mostrarDado();
     mostrarElemento('#btn-reiniciarJogo');
+    mudarMomento('em jogo');
+    trocarMusica(album.coreDia01);
 
     // Retorna os dados iniciais do jogo
     return {
@@ -97,7 +98,6 @@ const construirJogadores = (listaJogadoresDOM) =>{
 const construirTabuleiro = (acc=10)=>{
     const tabuleiro = pegarElementos('#tabuleiro')[0];
     if (acc === 0){
-        //console.log(pegarElementos('#tabuleiro > div')[90].id = 'casa-1');
         tabuleiro.classList.remove('hide');
         return null;
     }
@@ -150,7 +150,6 @@ const imagens = [
 // Função que irá colocar a animação de agitar a imagem do dado ao pressionar o botão de rolar o dado.
 // Isso é feito através da propriedade classList, que permite o acesso à lista de classes dos elementos.
 const adicionarClasseAgitar = (foto) => {
-    console.log(foto)
     foto.classList.add("agitar");
 }
 
@@ -166,7 +165,8 @@ const atualizarDado = (valorDado) => {
     const totalElemento = pegarElementos("#total")[0];
     // Aqui ocorre a sincronia da imagem que será mostrada do valor obtido no dado.
     // Ex: se o valor do dado for 1, será exibido o que está armazena no index 0 da lista de imagens.
-    fotoElemento.setAttribute("src", imagens[valorDado]); //Atualiza o atributo da imagem.
+    fotoElemento.setAttribute("src", imagens[valorDado]);
+     //Atualiza o atributo da imagem.
     totalElemento.innerHTML = `Você rolou ${valorDado + 1}`; //Mostra o valor obtido no dado.
 }
 
@@ -175,10 +175,14 @@ const rolar = (dado) => {
     // Através do forEach, é adicionado a classe "agitar" a cada uma das imagens.
     adicionarClasseAgitar(dado);
     const valorDado = Math.floor(Math.random() * 6); // Valor aleatório gerado entre 0 e 5.
-    setTimeout(() => { // 1s de delay para evitar o spam no clique de rolagem do dado.
-    removerClasseAgitar(dado); // Remoção do efeito de agitação.
-    atualizarDado(valorDado); // Chamando a função responsável por atualizar as propriedades do dado
-    }, 1000);
+    // 1s de delay para evitar o spam no clique de rolagem do dado.
+
+    esperar(1000, ()=>{
+        removerClasseAgitar(dado);
+        atualizarDado(valorDado);
+    })
+     // Chamando a função responsável por atualizar as propriedades do dado
+    
     return valorDado;
 }
   
@@ -214,8 +218,13 @@ const alternarJogadorDaVez = () => {
 
 const rolarEAtualizarJogador = () => {
     const valorDoDado = rolar(main.dado.elemento);
-    verificaDado(main.dado.jogadorAtual, valorDoDado + 1);
-    alternarJogadorDaVez();
+    tocarMusica(album.dado[valorDoDado]);
+    
+    esperar(1000, ()=>{
+        verificaDado(main.dado.jogadorAtual, valorDoDado + 1);
+        alternarJogadorDaVez();
+    })
+    
     
 }
 
@@ -273,18 +282,14 @@ const verificaDado = (jogador, valorDado) => {
   const casaEspecial = main.casasEspeciais
 
   jogador.casaAtual = jogador.casaAtual + valorDado
-  console.log(valorDado);
 
   if (jogador.casaAtual > 100) {
     jogador.casaAtual = 100
   }
 
   if (jogador.casaAtual === 100) {
-
-    gerarAviso(`Parabéns! ${jogador.nome} ganhou o jogo`)
-
-    console.log(`${jogador.nome} ganhou`)
-    
+    mudarMomento('vitoria');
+    tocarMusica(album.victorySfx);
     mostrarTelaVitoria(jogador.nome)
 
     }
@@ -293,18 +298,16 @@ const verificaDado = (jogador, valorDado) => {
     if (jogador.casaAtual === casaEspecial[0]) {
 
         const acao = casaEspecial[1]
-        console.log(jogador.casaAtual)
+        acao < 0 ? tocarMusica(album.snakeSfx) : tocarMusica(album.ladderSfx);
 
         jogador.casaAtual += acao
-        gerarAviso(`${jogador.nome} caiu em uma casa especial e avançou ${acao} casas.`)
-        console.log(`${jogador.nome} caiu em uma casa especial e avançou ${acao} casas.`)
+        
         
         
 
 
     }
 })
-console.log(jogador)
 moverBoneco(jogador, jogador.casaAtual)
 
 }
@@ -313,6 +316,6 @@ const  mostrarTelaVitoria = (jogadorwin) => {
     criarTelaVitoria()
     const tela = pegarElementos('div#telaVitoria')[0];
     const jogador = pegarElementos('#nomeJogadorVencedor')[0];
-    jogador.innerHTML = `Parabéns! o jogador ${jogadorwin} venceu!`;
+    jogador.innerHTML = `Parabéns! O jogador ${jogadorwin} venceu!`;
 
 }

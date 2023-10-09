@@ -14,7 +14,7 @@
 body{
     height: 100%;
     width: 100%;
-    background-image: url('../img/teste2.gif');
+    background-image: url('../img/background-day.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -34,12 +34,19 @@ div.tabuleiro{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-image: url('../img/tabuleiro.jpeg');
+    background-image: url('../img/tabuleiro.png');
     background-size: contain;
-    height: calc(768px / 1.2);
-    width: calc(1031px / 1.2);
-    border: 1px solid black;
+    background-repeat: no-repeat;
+    height: calc(1600px / 2.4);
+    width: calc(1600px / 2.4);
     border-collapse: collapse;
+    padding: 50px;
+    border: solid rgba(42, 152, 42, 0.408) 10px;
+    
+    animation-name: tabuleiroBrilho;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 /* Define estilos para as casas do tabuleiro */
@@ -47,7 +54,6 @@ div.casa{
     position: relative;
     height: calc(100% / 10);
     width: calc(100% / 10);
-    border: 1px solid black;
     border-collapse: collapse;
 }
 
@@ -63,6 +69,11 @@ div.configuracoesIniciais{
     flex-direction: column;
     text-align: center;
     align-items: center;
+    animation-name: crescerDiminuir;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    border: solid 5px black;
 
     background-color: white;
     padding: 25px;
@@ -87,28 +98,32 @@ button#adicionarJogador{
 
 /* Estilos específicos para o botão de iniciar o jogo */
 button#btn-iniciar{
-    font-size: 18pt;
-    padding: 5px;
+    font-size: 14pt;
+    position: relative;
+    padding: 10px;
     background-color: rgb(8, 190, 199);
     border-radius: 5px;
     color: white;
+    animation-name: balancar;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 
 .container{
-    width: 100px;
-    padding: 130px;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 76%;
-    left: 89%;
-    background-color: #689ef0;
-    box-shadow: 0 15px 25px rgba(50,50,50,0.15);
-    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: absolute;
+    padding: 15px;
+    right: 15px;
+    bottom: 15px;
+    background-color: #272b31f2;
+    box-shadow: 0 15px 25px rgba(50,50,50,0.15);
+    border-radius: 8px;
     font-family:  'Press Start 2P', cursive;
+    color: white;
 }
 
 #total {
@@ -122,55 +137,35 @@ button#btn-iniciar{
     
 }
 
-.dado{
-    width: 90%;
-    display: flex;
-    justify-content: space-around;
-    position: absolute;
-    top: 11%;
-    left: 31%;
-}
-
 p#total{
     font-size: 16px;
-    margin: 30px 0;
     font-weight: 600;
-    position: absolute;
-    top: 47%;
-    left: 32%;
+    
 }
 
 button#btn-rolar{
+    position: relative;
     background-color: #e92e3d;
     border: none;
-    outline: none;
-    color: #000000;
+    color: white;
     font-weight: 800;
-    padding: 15px 0;
-    width: 150px;
+    padding: 20px;
     letter-spacing: 1px;
     border-radius: 5px;
+    border: 1px solid white;
     cursor: pointer;
-    position: absolute;
-    top: 73%;
-    left: 22%;
+    animation-name: balancarRolar;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    
 }
 
 .agitar{
     animation: agitar 0.5s infinite;
 }
 
-@keyframes agitar{
-    0%{
-        transform: rotate(8deg);
-    }
-    50%{
-        transform: rotate(-8deg);
-    }
-    100%{
-        transform: rotate(8deg);
-    }
-}
+
 
 div.jogadores{
     display: flex;
@@ -182,7 +177,7 @@ div.jogadores{
 
 div.jogador{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 10px;
     border-bottom: 1px solid gray;
@@ -197,6 +192,8 @@ div.jogador label {
 div.jogador input[type="text"]{
     padding: 5px;
     font-family:'Lalezar', cursive !important;
+    border: none;
+    border-bottom: solid 1px black;
 }
 
 /* Define estilos para o rótulo de escolha de cor de jogador */
@@ -211,12 +208,10 @@ label.colorPicker{
 div.dado{
     height: 100px;
     width: 100px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
     background-image: url('../img/dice.png');
     background-size: cover;
     cursor: pointer;
+    margin: 10px 50px;
 }
 
 /* Define estilos para a seção que contém os bonecos dos jogadores */
@@ -228,6 +223,7 @@ div.bonecosDosJogadores{
     left: 15px;
     background-color: rgb(255, 255, 255);
     border-radius: 5px;
+    padding: 5px;
 
     
 }
@@ -238,7 +234,6 @@ div.bonecosDosJogadores p{
 
 /* Define estilos para um boneco de jogador individual */
 div.bonecoJogador{
-    transition: ease-in-out 1s;
     height: 50px;
     text-align: center;
     padding: 1px 5px;
@@ -252,7 +247,20 @@ div.bonecoJogador p{
 
 /* Define estilos para um boneco de jogador movido */
 div.bonecoMovido{
+    font-size: small !important;
     position: absolute;
+    animation-name: mexerBonecos;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    transition: 1s;
+}
+
+div.bonecoMovido > div{
+    height: 20px !important;
+    width: 20px !important;
+    border-radius: 15px;
+    margin: 0 auto;
 }
 
 
@@ -285,12 +293,15 @@ div#telaVitoria{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
-    background-color: white;
+    background-color: rgb(21, 21, 21);
+    color: rgb(242, 242, 242);
     border: solid 1px black;
     border-radius: 15px;
     padding: 20px;
     text-align: center;
     justify-content: space-evenly;
+    border: white solid 2px;
+    box-shadow: 0px 0px 55px 65px rgb(18, 18, 18);
 }
 
 button#btn-jogarNovamente{
@@ -301,19 +312,52 @@ button#btn-jogarNovamente{
     border: solid 1px white;
     cursor: pointer;
     text-align: center;
+    animation-name: balancarRolar;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 button#btn-reiniciarJogo{
     position: absolute;
+    left: 5%;
+    top: 10%;
     padding: 15px;
-    border-radius: 10px;
-    top: 50%;
-    left: 50px;
-    transform: translateY(-50%);
-    background-color: #2075f4;
+    border-radius: 15px;
+    background-color: rgb(228, 46, 46);
     color: white;
-    border: solid 1px white;
+    border: solid 2px black;
     cursor: pointer;
     text-align: center;
     z-index: 50;
+}
+
+div#interacao{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    height: 100%;
+    width: 100%;
+}
+
+div#interacao > p {
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+}
+
+div#interacao > button {
+    position: relative;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    animation-name: balancar;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
